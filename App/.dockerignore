@@ -1,0 +1,26 @@
+# Archivos de registros
+logs
+*.log
+
+# Archivos de configuración de IDE
+.vscode
+
+# Archivos de control de versiones
+.git
+.gitignore
+
+# Archivos de entorno
+.env
+
+# Archivos temporales y de caché
+tmp
+temp
+*.tmp
+*.cache
+
+# Archivos de construcción local
+node_modules
+scripts
+
+# Archivos de ayuda
+*.md

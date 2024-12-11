@@ -1,0 +1,10 @@
+# Descripción: Definición de un recurso tipo StorageClass para almacenamiento dinámico en Amazon EBS.
+
+apiVersion: storage.k8s.io/v1 # Versión de la API de Kubernetes
+kind: StorageClass # Tipo de recurso, en este caso una clase de almacenamiento
+metadata:
+  name: mongodb-storage-class
+provisioner: kubernetes.io/aws-ebs # Proveedor de almacenamiento
+reclaimPolicy: Retain # Política de reclamación de almacenamiento
+parameters:
+  type: gp3 # Tipo de volumen de EBS

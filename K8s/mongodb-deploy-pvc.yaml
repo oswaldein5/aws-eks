@@ -1,0 +1,30 @@
+# Descripción:  Definición de un recurso de tipo Deployment para desplegar un pod con MongoDB.
+#               Este deployment utiliza un PersistentVolumeClaim (PVC) para proporcionar almacenamiento persistente a MongoDB.
+
+apiVersion: apps/v1 # Versión de la API de Kubernetes
+kind: Deployment # Tipo de recurso, en este caso un Deployment
+metadata:
+  name: mongodb # Nombre del Deployment
+  namespace: demo-k8s # Namespace donde se desplegará el Deployment
+spec:
+  replicas: 1 # Número de réplicas del pod
+  selector:
+    matchLabels:
+      app: mongodb # Selector para identificar los pods que pertenecen a este Deployment
+  template:
+    metadata:
+      labels:
+        app: mongodb # Etiquetas para los pods creados por este Deployment
+    spec:
+      containers:
+        - name: mongodb # Nombre del contenedor
+          image: mongo:7.0.8-jammy # Imagen de Docker que se usará para el contenedor
+          ports:
+            - containerPort: 27017 # Puerto expuesto por el contenedor
+          volumeMounts:
+            - name: mongo-storage # Nombre del volumen montado
+              mountPath: /data/db # Ruta en el contenedor donde se montará el volumen
+      volumes:
+        - name: mongo-storage # Nombre del volumen
+          persistentVolumeClaim:
+            claimName: mongodb-pvc-ebs # Nombre del PersistentVolumeClaim que se usará

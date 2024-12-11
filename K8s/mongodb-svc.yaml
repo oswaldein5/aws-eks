@@ -1,0 +1,16 @@
+# Descripción:  Definición de un recurso tipo Service para exponer una base de datos MongoDB
+#               en un clúster de Kubernetes.
+
+apiVersion: v1 # Versión de la API de Kubernetes
+kind: Service # Tipo de recurso, en este caso un Service
+metadata:
+  name: mongodb # Nombre del Service
+  namespace: demo-k8s # Namespace donde se creará el Service
+# Especificaciones del servicio
+spec:
+  # Definición de los puertos del servicio
+  ports:
+    - port: 27017 # Puerto del servicio
+      targetPort: 27017 # Puerto del pod
+  selector:
+    app: mongodb # Selector para identificar los pods que pertenecen al servicio

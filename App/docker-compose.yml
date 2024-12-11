@@ -1,0 +1,29 @@
+#version: "3.8" # Versión de Docker Compose
+
+services:
+  web_server:
+    build: .
+    container_name: web_server
+    ports:
+      - "3000:3000" # Mapea el puerto 3000 del host al puerto 3000 del contenedor
+    depends_on:
+      - mongodb # Define que el servicio web_server depende del servicio mongodb
+    environment:
+      MONGODB_URI: "mongodb://mongodb:27017/myDB?directConnection=true" # Variable de entorno para la URI MongoDB
+    restart: unless-stopped # Política de reinicio
+
+  mongodb:
+    image: mongo:7.0.8-jammy # Imagen de MongoDB a utilizar
+    container_name: mongodb
+    ports:
+      - "27017:27017" # Mapea el puerto 27017 del host al puerto 27017 del contenedor
+    volumes:
+      - mongo_data:/data/db # Volumen para almacenar los datos de MongoDB de forma persistente
+    restart: unless-stopped # Política de reinicio
+
+volumes:
+  mongo_data: # Volumen para almacenar los datos de MongoDB
+
+networks:
+  default:
+    name: network_test # Nombre de la red para los servicios

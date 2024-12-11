@@ -1,0 +1,46 @@
+# Descripción:  Definición de un recurso tipo Deployment para desplegar un pod con MongoDB
+#               y almacenamiento persistente a nivel de nodo con un volumen de host.
+
+apiVersion: apps/v1 # Versión de la API de Kubernetes
+kind: Deployment # Tipo de recurso, en este caso un Deployment
+metadata:
+  name: mongodb # Nombre del Deployment
+  namespace: demo-k8s # Namespace donde se desplegará el Deployment
+
+# Especificación del Deployment.
+spec:
+  # Número de réplicas de pods a ejecutar.
+  replicas: 1
+
+  # Selector para identificar los pods gestionados por este Deployment.
+  selector:
+    matchLabels:
+      app: mongodb
+
+  # Plantilla para los pods creados por este Deployment.
+  template:
+    metadata:
+      labels:
+        app: mongodb
+
+    # Especificación del pod.
+    spec:
+      containers:
+        - name: mongodb
+          # Imagen de Docker a usar para el contenedor de MongoDB.
+          image: mongo:7.0.8-jammy
+          # Puerto expuesto por el contenedor de MongoDB.
+          ports:
+            - containerPort: 27017
+          # Configuración de montaje de volumen para el contenedor de MongoDB.
+          volumeMounts:
+            - name: mongo-storage
+              mountPath: /data/db
+
+      # Configuración de volumen para el pod.
+      volumes:
+        - name: mongo-storage
+          # Configuración de volumen de ruta de host.
+          hostPath:
+            path: /mnt/data/mongodb
+            type: DirectoryOrCreate

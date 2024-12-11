@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<style>
+		body {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+			margin: 0;
+		}
+		table {
+			width: 30%;
+			margin: 20px 0;
+		}
+		canvas {
+			width: 500px !important;
+			height: 500px !important;
+			margin: 20px 0;
+		}
+	</style>
+</head>
+<body>
+	<h1>PIB de 5 Países</h1>
+
+	<!-- Tabla de PIB -->
+	<table border="1">
+		<thead>
+			<tr>
+				<th>País</th>
+				<th>PIB (en millones USD)</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% countries.forEach(country => { %>
+			<tr>
+				<td><%= country.name %></td>
+				<td><%= country.pib.toLocaleString() %></td>
+			</tr>
+			<% }) %>
+		</tbody>
+	</table>
+
+	<!-- Gráfico de pastel -->
+	<canvas id="pibChart"></canvas>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			const ctx = document.getElementById('pibChart').getContext('2d');
+			const data = {
+				labels: <%- JSON.stringify(countries.map(c => c.name)) %>,
+				datasets: [{
+					data: <%- JSON.stringify(countries.map(c => c.pib)) %>,
+					backgroundColor: [
+						'rgba(255, 99, 132, 0.2)',
+						'rgba(54, 162, 235, 0.2)',
+						'rgba(255, 206, 86, 0.2)',
+						'rgba(75, 192, 192, 0.2)',
+						'rgba(153, 102, 255, 0.2)'
+					],
+					borderColor: [
+						'rgba(255, 99, 132, 1)',
+						'rgba(54, 162, 235, 1)',
+						'rgba(255, 206, 86, 1)',
+						'rgba(75, 192, 192, 1)',
+						'rgba(153, 102, 255, 1)'
+					],
+					borderWidth: 1
+				}]
+			};
+
+			const pibChart = new Chart(ctx, {
+				type: 'pie',
+				data: data,
+			});
+		});
+	</script>
+</body>
+</html>
