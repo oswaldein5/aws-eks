@@ -1,19 +1,19 @@
-# Descripción:  Definición de un recurso tipo Service para exponer 
-#               una aplicación web en un clúster de Kubernetes.
+# Description: Definition of a Service resource to expose
+#              a web application in a Kubernetes cluster.
 
-apiVersion: v1 # Versión de la API de Kubernetes
-kind: Service # Tipo de recurso, en este caso un Service
+apiVersion: v1 # Kubernetes API version
+kind: Service # Resource type, in this case a Service
 metadata:
-  name: web-server # Nombre del Service
-  namespace: demo-k8s # Namespace donde se creará el Service
-# Especificaciones del servicio
+  name: web-server # Service name
+  namespace: demo-k8s # Namespace where the Service will be created
+# Service specifications
 spec:
-  # Tipo de servicio, en este caso es un LoadBalancer
+  # Service type, in this case a LoadBalancer
   type: LoadBalancer
-  # Puertos que el servicio expondrá
+  # Ports that the service will expose
   ports:
-    - port: 3000 # Puerto del servicio
-      targetPort: 3000 # Puerto del pod
-  # Selector para identificar los pods que este servicio gestionará
+    - port: 3000 # Service port
+      targetPort: 3000 # Pod port
+  # Selector to identify the pods that this service will manage
   selector:
     app: web-server

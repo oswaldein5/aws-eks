@@ -1,7 +1,7 @@
-# Descripción: Definición para crear un Namespace en Kubernetes.
+# Description: Definition to create a Namespace in Kubernetes.
 
-apiVersion: v1 # Versión de la API de Kubernetes
-kind: Namespace # Tipo de recurso, en este caso un Namespace
+apiVersion: v1 # Kubernetes API version
+kind: Namespace # Resource type, in this case a Namespace
 metadata:
-  # Nombre del Namespace a crear
+  # Name of the Namespace to create
   name: demo-k8s

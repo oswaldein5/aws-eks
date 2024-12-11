@@ -1,46 +1,46 @@
-# Descripción:  Definición de un recurso tipo Deployment para desplegar un pod con MongoDB
-#               y almacenamiento persistente a nivel de nodo con un volumen de host.
+# Description: Definition of a Deployment resource to deploy a pod with MongoDB
+#              and persistent storage at the node level with a host volume.
 
-apiVersion: apps/v1 # Versión de la API de Kubernetes
-kind: Deployment # Tipo de recurso, en este caso un Deployment
+apiVersion: apps/v1 # Kubernetes API version
+kind: Deployment # Resource type, in this case a Deployment
 metadata:
-  name: mongodb # Nombre del Deployment
-  namespace: demo-k8s # Namespace donde se desplegará el Deployment
+  name: mongodb # Name of the Deployment
+  namespace: demo-k8s # Namespace where the Deployment will be deployed
 
-# Especificación del Deployment.
+# Deployment specification.
 spec:
-  # Número de réplicas de pods a ejecutar.
+  # Number of pod replicas to run.
   replicas: 1
 
-  # Selector para identificar los pods gestionados por este Deployment.
+  # Selector to identify the pods managed by this Deployment.
   selector:
     matchLabels:
       app: mongodb
 
-  # Plantilla para los pods creados por este Deployment.
+  # Template for the pods created by this Deployment.
   template:
     metadata:
       labels:
         app: mongodb
 
-    # Especificación del pod.
+    # Pod specification.
     spec:
       containers:
         - name: mongodb
-          # Imagen de Docker a usar para el contenedor de MongoDB.
+          # Docker image to use for the MongoDB container.
           image: mongo:7.0.8-jammy
-          # Puerto expuesto por el contenedor de MongoDB.
+          # Port exposed by the MongoDB container.
           ports:
             - containerPort: 27017
-          # Configuración de montaje de volumen para el contenedor de MongoDB.
+          # Volume mount configuration for the MongoDB container.
           volumeMounts:
             - name: mongo-storage
               mountPath: /data/db
 
-      # Configuración de volumen para el pod.
+      # Volume configuration for the pod.
       volumes:
         - name: mongo-storage
-          # Configuración de volumen de ruta de host.
+          # Host path volume configuration.
           hostPath:
             path: /mnt/data/mongodb
             type: DirectoryOrCreate

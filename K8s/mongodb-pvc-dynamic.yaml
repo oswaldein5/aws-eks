@@ -1,17 +1,17 @@
-# Descripción:  Definición de un recurso tipo PersistentVolumeClaim (PVC) para almacenamiento dinámico en Amazon EBS.
+# Description: Definition of a PersistentVolumeClaim (PVC) resource for dynamic storage in Amazon EBS.
 
-apiVersion: v1 # Versión de la API de Kubernetes
-kind: PersistentVolumeClaim # Tipo de recurso, en este caso un PersistentVolumeClaim
+apiVersion: v1 # Kubernetes API version
+kind: PersistentVolumeClaim # Resource type, in this case a PersistentVolumeClaim
 metadata:
-  name: mongodb-pvc-ebs # Nombre del PVC
+  name: mongodb-pvc-ebs # PVC name
   labels:
-    type: amazonEBS # Etiqueta para identificar el tipo de almacenamiento
-  namespace: demo-k8s # Namespace donde se creará el PVC
-# Especificaciones del PersistentVolumeClaim
+    type: amazonEBS # Label to identify the storage type
+  namespace: demo-k8s # Namespace where the PVC will be created
+# Specifications of the PersistentVolumeClaim
 spec:
-  storageClassName: mongodb-storage-class # Clase de almacenamiento a utilizar de forma dinámica
+  storageClassName: mongodb-storage-class # Storage class to be used dynamically
   accessModes:
-    - ReadWriteOnce # Modo de acceso de lectura/escritura única
+    - ReadWriteOnce # Access mode for read/write once
   resources:
     requests:
-      storage: 1Gi # Solicitud de almacenamiento de 1Gi
+      storage: 1Gi # Storage request of 1Gi

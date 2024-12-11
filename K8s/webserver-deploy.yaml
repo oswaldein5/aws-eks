@@ -1,17 +1,17 @@
-# Descripción:  Definición de un recurso tipo Deployment para desplegar un pod
-#               con una imagen de una aplicación web en un clúster de Kubernetes.
+# Description: Definition of a Deployment resource to deploy a pod
+#              with a web application image in a Kubernetes cluster.
 
-apiVersion: apps/v1 # Versión de la API de Kubernetes
-kind: Deployment # Tipo de recurso, en este caso un Deployment
+apiVersion: apps/v1 # Kubernetes API version
+kind: Deployment # Resource type, in this case a Deployment
 metadata:
-  name: web-server # Nombre del Deployment
-  namespace: demo-k8s # Namespace donde se creará el Deployment
+  name: web-server # Name of the Deployment
+  namespace: demo-k8s # Namespace where the Deployment will be created
 spec:
-  # Número de réplicas del pod
+  # Number of pod replicas
   replicas: 2
   selector:
     matchLabels:
-      app: web-server # Etiqueta para identificar el pod
+      app: web-server # Label to identify the pod
   template:
     metadata:
       labels:
@@ -19,12 +19,12 @@ spec:
     spec:
       containers:
         - name: web-server
-          # Imagen del contenedor (Actividad No. 02)
+          # Container image
           image: oswaldeins/repo_unir:nodejs-app-v1.0
-          # Puertos expuestos por el contenedor
+          # Ports exposed by the container
           ports:
             - containerPort: 3000
-          # Variables de entorno
+          # Environment variables
           env:
             - name: MONGODB_URI
               value: "mongodb://mongodb:27017/myDB?directConnection=true"

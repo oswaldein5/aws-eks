@@ -1,21 +1,21 @@
-# Descripción:  Definición de un recurso tipo PersistentVolume (PV) para proporcionar
-#               almacenamiento persistente utilizando Amazon Elastic Block Store (EBS).
+# Description: Definition of a PersistentVolume (PV) resource to provide
+#              persistent storage using Amazon Elastic Block Store (EBS).
 
-apiVersion: v1 # Versión de la API de Kubernetes
-kind: PersistentVolume # Tipo de recurso, en este caso un PersistentVolume
+apiVersion: v1 # Kubernetes API version
+kind: PersistentVolume # Resource type, in this case a PersistentVolume
 metadata:
-  name: mongodb-pv-ebs # Nombre del PersistentVolume
+  name: mongodb-pv-ebs # Name of the PersistentVolume
   labels:
-    type: amazonEBS # Etiqueta para identificar el tipo de almacenamiento
+    type: amazonEBS # Label to identify the storage type
 spec:
   capacity:
-    storage: 1Gi # Capacidad de almacenamiento
+    storage: 1Gi # Storage capacity
   accessModes:
-    - ReadWriteOnce # Modo de acceso de lectura/escritura única
+    - ReadWriteOnce # Access mode for read/write once
   awsElasticBlockStore:
-    # ID del volumen de EBS
+    # EBS volume ID
     volumeID: aws://us-east-1b/vol-0bfdcf51c5e8bbaf7
-    # Tipo de sistema de archivos
+    # File system type
     fsType: ext4
-  # Política de reclamo del PersistentVolume
+  # PersistentVolume reclaim policy
   persistentVolumeReclaimPolicy: Retain

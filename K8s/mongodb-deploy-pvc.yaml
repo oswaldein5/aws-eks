@@ -1,30 +1,30 @@
-# Descripción:  Definición de un recurso de tipo Deployment para desplegar un pod con MongoDB.
-#               Este deployment utiliza un PersistentVolumeClaim (PVC) para proporcionar almacenamiento persistente a MongoDB.
+# Description: Definition of a Deployment resource to deploy a pod with MongoDB.
+#              This deployment uses a PersistentVolumeClaim (PVC) to provide persistent storage for MongoDB.
 
-apiVersion: apps/v1 # Versión de la API de Kubernetes
-kind: Deployment # Tipo de recurso, en este caso un Deployment
+apiVersion: apps/v1 # Kubernetes API version
+kind: Deployment # Resource type, in this case a Deployment
 metadata:
-  name: mongodb # Nombre del Deployment
-  namespace: demo-k8s # Namespace donde se desplegará el Deployment
+  name: mongodb # Name of the Deployment
+  namespace: demo-k8s # Namespace where the Deployment will be deployed
 spec:
-  replicas: 1 # Número de réplicas del pod
+  replicas: 1 # Number of pod replicas
   selector:
     matchLabels:
-      app: mongodb # Selector para identificar los pods que pertenecen a este Deployment
+      app: mongodb # Selector to identify the pods that belong to this Deployment
   template:
     metadata:
       labels:
-        app: mongodb # Etiquetas para los pods creados por este Deployment
+        app: mongodb # Labels for the pods created by this Deployment
     spec:
       containers:
-        - name: mongodb # Nombre del contenedor
-          image: mongo:7.0.8-jammy # Imagen de Docker que se usará para el contenedor
+        - name: mongodb # Name of the container
+          image: mongo:7.0.8-jammy # Docker image to be used for the container
           ports:
-            - containerPort: 27017 # Puerto expuesto por el contenedor
+            - containerPort: 27017 # Port exposed by the container
           volumeMounts:
-            - name: mongo-storage # Nombre del volumen montado
-              mountPath: /data/db # Ruta en el contenedor donde se montará el volumen
+            - name: mongo-storage # Name of the mounted volume
+              mountPath: /data/db # Path in the container where the volume will be mounted
       volumes:
-        - name: mongo-storage # Nombre del volumen
+        - name: mongo-storage # Name of the volume
           persistentVolumeClaim:
-            claimName: mongodb-pvc-ebs # Nombre del PersistentVolumeClaim que se usará
+            claimName: mongodb-pvc-ebs # Name of the PersistentVolumeClaim to be used
